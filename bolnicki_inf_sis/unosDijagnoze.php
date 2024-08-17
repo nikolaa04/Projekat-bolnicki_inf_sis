@@ -2,6 +2,7 @@
 session_start();
 include ("php/baza.php");
 
+$pacijent_id = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
@@ -9,12 +10,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
         $pacijent_id = $_SESSION['pacijent_id'];
 
-        
         $grana_id = $mysqli->real_escape_string($_POST["grana_id"]);
         $naziv = $mysqli->real_escape_string($_POST["naziv"]);
         $opis = $mysqli->real_escape_string($_POST["opis"]);
 
-        
         $query = "INSERT INTO dijagnoze (pacijent_id, grana_id, naziv, opis) VALUES (?, ?, ?, ?)";
         $stmt = $mysqli->prepare($query);
         $stmt->bind_param("iiss", $pacijent_id, $grana_id, $naziv, $opis);
@@ -27,7 +26,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $stmt->close();
     } else {
-        
+        header("Location: panel.php");
+        exit();
+    }
+} else {
+    if (isset($_SESSION['pacijent_id'])) {
+        $pacijent_id = $_SESSION['pacijent_id'];
+    } else {
         header("Location: panel.php");
         exit();
     }
@@ -40,8 +45,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/style.css">
-
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> 
     <title>Unos dijagnoze</title>
 </head>
 
@@ -52,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <h2>Unos dijagnoze</h2>
                 <form action="
                 <?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-                    <input type="hidden" name="pacijent_id" value="<?php echo $id_pacijenta; ?>">
+                    <input type="hidden" name="pacijent_id" value="<?php echo $pacijent_id; ?>">
                     
                     <div class="form-group">
                         <label for="grana_id">Grana medicine:</label>

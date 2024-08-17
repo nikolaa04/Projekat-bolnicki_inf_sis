@@ -2,4 +2,4 @@
 
 session_start();
 session_destroy();
-header('Location: ../logovanje.php?success=1');
+header('Location: ../index.php?success=1');

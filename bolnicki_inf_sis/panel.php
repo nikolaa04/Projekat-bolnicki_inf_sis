@@ -20,6 +20,7 @@ $username = $_SESSION['username'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dobrodošli na panel</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 </head>
 
 <body>
@@ -32,7 +33,7 @@ $username = $_SESSION['username'];
                         <p class="logged-in-user">Dobrodošli, <?php echo $username; ?></p>
                     </div>
                     <div class="col-md-6 text-right">
-                        <a href="./php/odjava.php" class="card-link btn btn-dark" style="color: white;">Odjava</a>
+                        <a href="php/odjava.php" class="card-link btn btn-dark" style="color: white;">Odjava</a>
                     </div>
                 </div>
                 <hr>
